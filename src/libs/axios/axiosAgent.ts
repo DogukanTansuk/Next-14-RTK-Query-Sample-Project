@@ -1,5 +1,6 @@
 // Package Imports
 import axios from 'axios'
+import Cookies from 'js-cookie'
 
 export const axiosAgent = axios.create({
   baseURL: 'https://dummyjson.com',
@@ -10,6 +11,9 @@ export const axiosAgent = axios.create({
 
 axiosAgent.interceptors.request.use(
   (config) => {
+    const token = Cookies.get('token')
+    if (token) config.headers.Authorization = `Bearer ${token}`
+
     return config
   },
   (error) => {

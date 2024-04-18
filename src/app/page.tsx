@@ -7,8 +7,8 @@ import {withAuth} from '@/hocs'
 // Next Imports
 import Image from 'next/image'
 
-export const HomePage = withAuth(() => {
+const HomePage = () => {
   return <>Home Page</>
-})
+}
 
-export default HomePage
+export default withAuth(HomePage)

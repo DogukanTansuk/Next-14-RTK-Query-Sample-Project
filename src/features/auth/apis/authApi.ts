@@ -18,8 +18,16 @@ export const authApi = rtkQueryApi.injectEndpoints({
         }
       },
     }),
+    me: build.query<UserModel, any>({
+      query: () => {
+        return {
+          url: '/auth/me',
+          method: 'GET',
+        }
+      },
+    }),
   }),
 })
 
-export const {useLoginMutation} = authApi
+export const {useLoginMutation, useLazyMeQuery} = authApi
 export default authApi

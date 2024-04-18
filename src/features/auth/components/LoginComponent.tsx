@@ -5,7 +5,11 @@ import React, {useEffect} from 'react'
 
 // Feature Imports
 import {useLoginMutation} from '../apis'
-import {LoginRequestModel} from '../models'
+import {LoginRequestModel, UserModel} from '../models'
+import {setUserAction} from '../authAction'
+
+// Hook Imports
+import {useAppDispatch} from '@/hooks'
 
 // Next Imports
 import Link from 'next/link'
@@ -26,19 +30,49 @@ import {
 } from '@mui/material'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import {useFormik} from 'formik'
+import {useRouter} from 'next/navigation'
+import Cookies from 'js-cookie'
+import * as Yup from 'yup'
 
 export const LoginComponent = () => {
+  const router = useRouter()
+
+  const dispatch = useAppDispatch()
   const [login, {isLoading, data, isError, isSuccess}] = useLoginMutation()
 
   const initialValues: LoginRequestModel = {
     username: '',
     password: '',
   }
+  const loginValidationSchema = Yup.object({
+    username: Yup.string().required('Username Required'),
+    password: Yup.string().required('Password Required'),
+  })
 
-  const {handleChange, handleSubmit} = useFormik({
+  const {
+    errors: {username, password},
+    dirty,
+    handleChange,
+    handleSubmit,
+  } = useFormik({
     initialValues,
+    validationSchema: loginValidationSchema,
     onSubmit: (values) => login(values),
   })
+
+  useEffect(() => {
+    Cookies.get('token') && router.push('/')
+  }, [])
+
+  useEffect(() => {
+    if (isSuccess && data) {
+      const setUser = (user: Nullable<UserModel>) => dispatch(setUserAction(user))
+      setUser(data)
+      Cookies.set('token', data.token, {path: '/', sameSite: 'strict', expires: 3600})
+
+      router.push('/')
+    }
+  }, [isLoading, isSuccess, isError, data])
 
   return (
     <Grid container component='main' sx={{height: '100vh'}}>
@@ -83,6 +117,7 @@ export const LoginComponent = () => {
               name='username'
               autoComplete='email'
               autoFocus
+              error={!!username}
             />
             <TextField
               margin='normal'
@@ -94,6 +129,7 @@ export const LoginComponent = () => {
               type='password'
               id='password'
               autoComplete='current-password'
+              error={!!password}
             />
             <FormControlLabel
               control={<Checkbox value='remember' color='primary' />}
@@ -101,7 +137,7 @@ export const LoginComponent = () => {
             />
             <Button
               type='button'
-              disabled={isLoading}
+              disabled={isLoading || !!username || !!password || !dirty}
               onClick={() => handleSubmit()}
               fullWidth
               variant='contained'

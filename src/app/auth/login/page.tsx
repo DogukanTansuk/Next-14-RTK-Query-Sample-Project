@@ -4,8 +4,6 @@ import React from 'react'
 // Feature Imports
 import {LoginComponent} from '@/features/auth/components/LoginComponent'
 
-export const LoginPage = () => {
+export default function LoginPage() {
   return <LoginComponent />
 }
-
-export default LoginPage
