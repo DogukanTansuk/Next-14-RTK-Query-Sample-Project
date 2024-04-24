@@ -24,7 +24,7 @@ export const AppInitializeProvider: FC<PropsWithChildren> = ({children}) => {
   const token = Cookies.get('token')
 
   const dispatch = useAppDispatch()
-  const setAppInitialized = () => dispatch(setAppReady(true))
+  const setAppInitialized: () => void = () => dispatch(setAppReady(true))
   const [me, {isLoading, isSuccess, isError, data}] = useLazyMeQuery()
 
   useEffect(() => {
