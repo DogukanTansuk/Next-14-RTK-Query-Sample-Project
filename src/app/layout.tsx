@@ -6,6 +6,9 @@ import './globals.css'
 // Provider Imports
 import {AppProvider} from '@/providers'
 
+// Component Imports
+import Header from '@/components/header/Header'
+
 const inter = Roboto({weight: '500', subsets: ['latin']})
 
 export const metadata: Metadata = {
@@ -21,7 +24,7 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={inter.className}>
-        <AppProvider>{children}</AppProvider>
+        <AppProvider><Header/>{children}</AppProvider>
       </body>
     </html>
   )
