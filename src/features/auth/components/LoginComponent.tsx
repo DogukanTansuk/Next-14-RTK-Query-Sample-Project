@@ -7,9 +7,10 @@ import React, {useEffect} from 'react'
 import {useLoginMutation} from '../apis'
 import {LoginRequestModel, UserModel} from '../models'
 import {setUserAction} from '../authAction'
+import {getUserState} from '../authSelector'
 
 // Hook Imports
-import {useAppDispatch} from '@/hooks'
+import {useAppDispatch, useAppSelector} from '@/hooks'
 
 // Next Imports
 import Link from 'next/link'
@@ -36,6 +37,7 @@ import * as Yup from 'yup'
 
 export const LoginComponent = () => {
   const router = useRouter()
+  const user = useAppSelector(getUserState)
 
   const dispatch = useAppDispatch()
   const [login, {isLoading, data, isError, isSuccess}] = useLoginMutation()
@@ -61,7 +63,7 @@ export const LoginComponent = () => {
   })
 
   useEffect(() => {
-    Cookies.get('token') && router.push('/')
+    ;(user || Cookies.get('token')) && router.push('/')
   }, [])
 
   useEffect(() => {
@@ -73,7 +75,8 @@ export const LoginComponent = () => {
       router.push('/')
     }
   }, [isLoading, isSuccess, isError, data])
-
+  
+  if (user) return <div>Loading...</div>
   return (
     <Grid container component='main' sx={{height: '100vh'}}>
       <CssBaseline />

@@ -12,10 +12,12 @@ import {useRouter} from 'next/navigation'
 
 // Package Imports
 import {useSelector} from 'react-redux'
+import {useAppSelector} from '@/hooks'
+import {getAppReady} from '@/features/app'
 
 export const withAuth = (Component: React.FC) => {
   return () => {
-    const user = useSelector(getUserState)
+    const user = useAppSelector(getUserState)
     const router = useRouter()
 
     if (!user) {
