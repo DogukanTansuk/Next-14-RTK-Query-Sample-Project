@@ -8,6 +8,7 @@ import {AppProvider} from '@/providers'
 
 // Component Imports
 import Header from '@/components/header/Header'
+import {Layout} from '@/components/layout'
 
 const inter = Roboto({weight: '500', subsets: ['latin']})
 
@@ -24,7 +25,10 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={inter.className}>
-        <AppProvider><Header/>{children}</AppProvider>
+        <AppProvider>
+          <Header />
+          <Layout>{children}</Layout>
+        </AppProvider>
       </body>
     </html>
   )
