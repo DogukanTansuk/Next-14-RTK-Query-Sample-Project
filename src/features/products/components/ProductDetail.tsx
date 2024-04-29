@@ -12,32 +12,34 @@ import Typography from '@mui/material/Typography'
 import Link from 'next/link'
 import {useParams} from 'next/navigation'
 
-interface ProductCardProps {
-  id: string
+interface ProductDetailProps {
   title: string
   description: string
   price: number
+  discountPercentage: number
+  rating: number
+  stock: number
   brand: string
   category: string
   thumbnail: string
   images: string[]
 }
 
-export const ProductCard: FC<ProductCardProps> = ({
+export const ProductDetail: FC<ProductDetailProps> = ({
   title,
   description,
   price,
+  discountPercentage,
+  rating,
+  stock,
   brand,
   category,
   thumbnail,
   images,
-  id,
 }) => {
-  const [showButton, setShowButton] = useState(false)
-  const {slug} = useParams()
 
   return (
-    <Card className='w-full'>
+    <Card sx={{maxWidth: 800}}>
       {images && images.length > 0 ? (
         <CardMedia component='img' height='140' image={images[0]} alt={title} />
       ) : null}
@@ -52,6 +54,15 @@ export const ProductCard: FC<ProductCardProps> = ({
           {price}
         </Typography>
         <Typography variant='body2' color='text.secondary'>
+          {discountPercentage}
+        </Typography>
+        <Typography variant='body2' color='text.secondary'>
+          {rating}
+        </Typography>
+        <Typography variant='body2' color='text.secondary'>
+          {stock}
+        </Typography>
+        <Typography variant='body2' color='text.secondary'>
           {brand}
         </Typography>
         <Typography variant='body2' color='text.secondary'>
@@ -63,9 +74,6 @@ export const ProductCard: FC<ProductCardProps> = ({
       </CardContent>
       <CardActions>
         <Button size='small'>Share</Button>
-        <Link href='/products/[slug]' as={`/products/${id}`}>
-          <Button size='small'>Learn More</Button>
-        </Link>
       </CardActions>
     </Card>
   )

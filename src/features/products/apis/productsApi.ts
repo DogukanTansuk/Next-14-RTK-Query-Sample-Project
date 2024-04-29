@@ -1,5 +1,5 @@
 import {rtkQueryApi} from '@/libs/reduxToolkit'
-import {ProductsResponseModel} from '../models'
+import {CategoriesResponseModel, ProductsResponseModel} from '../models'
 import {ProductResponseModel} from '../models/productResponseModel'
 
 export const productsApi = rtkQueryApi.injectEndpoints({
@@ -16,8 +16,14 @@ export const productsApi = rtkQueryApi.injectEndpoints({
         method: 'GET',
       }),
     }),
+    getCategories: builder.query<string[], any>({
+      query: () => ({
+        url: '/products/categories',
+        method: 'GET',
+      }),
+    }),
   }),
 })
 
-export const {useGetProductsQuery, useGetProductQuery} = productsApi
+export const {useGetProductsQuery, useGetProductQuery, useGetCategoriesQuery} = productsApi
 export default productsApi
