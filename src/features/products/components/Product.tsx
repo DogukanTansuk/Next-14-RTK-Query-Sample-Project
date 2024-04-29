@@ -18,7 +18,7 @@ export const Product = () => {
 
   return (
     <div className='w-full'>
-      <h1 className='text-3xl text-center w-full mb-6'>Products</h1>
+      <h1 className='text-3xl text-center w-full mb-6'>{data?.title} </h1>
       <div className='flex justify-center items-center'>
         {isLoading && <p>Loading...</p>}
         {isSuccess && <ProductDetail key={data?.id} {...data} />}

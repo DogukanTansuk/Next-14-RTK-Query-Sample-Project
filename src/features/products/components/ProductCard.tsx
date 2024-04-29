@@ -37,7 +37,7 @@ export const ProductCard: FC<ProductCardProps> = ({
   const {slug} = useParams()
 
   return (
-    <Card sx={{maxWidth: 345}}>
+    <Card className='w-full'>
       {images && images.length > 0 ? (
         <CardMedia component='img' height='140' image={images[0]} alt={title} />
       ) : null}
