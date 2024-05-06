@@ -22,8 +22,22 @@ export const productsApi = rtkQueryApi.injectEndpoints({
         method: 'GET',
       }),
     }),
+    createProduct: builder.mutation<any, any>({
+      query: (data) => ({
+        url: '/products/add',
+        method: 'POST',
+        body: data,
+      }),
+    }),
+    updateProduct: builder.mutation<any, any>({
+      query: (data) => ({
+        url: `/products/${data.id}`,
+        method: 'PUT',
+        body: data,
+      }),
+    }),
   }),
 })
 
-export const {useGetProductsQuery, useGetProductQuery, useGetCategoriesQuery} = productsApi
+export const {useGetProductsQuery, useGetProductQuery, useGetCategoriesQuery, useCreateProductMutation, useUpdateProductMutation} = productsApi
 export default productsApi
