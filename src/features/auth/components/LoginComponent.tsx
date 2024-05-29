@@ -45,6 +45,7 @@ export const LoginComponent = () => {
   const initialValues: LoginRequestModel = {
     username: '',
     password: '',
+    expiresInMins: 60,
   }
   const loginValidationSchema = Yup.object({
     username: Yup.string().required('Username Required'),
@@ -63,7 +64,7 @@ export const LoginComponent = () => {
   })
 
   useEffect(() => {
-    ;(user || Cookies.get('token')) && router.push('/')
+    (user || Cookies.get('token')) && router.push('/')
   }, [])
 
   useEffect(() => {
