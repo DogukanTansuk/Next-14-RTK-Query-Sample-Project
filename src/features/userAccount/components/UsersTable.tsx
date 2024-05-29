@@ -18,11 +18,14 @@ import {
 } from '@tanstack/react-table'
 import {RankingInfo, rankItem, compareItems} from '@tanstack/match-sorter-utils'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faPenToSquare, faTrash} from '@fortawesome/free-solid-svg-icons'
+import {faEye, faPenToSquare, faTrash} from '@fortawesome/free-solid-svg-icons'
 import Swal from 'sweetalert2'
 import SearchInput from './SearchInput'
-import {UserModel} from '../models'
-import {useGetAllUsersQuery} from '../apis'
+import {UserAccountModel} from '../models'
+import {useDeleteUserMutation, useGetAllUsersQuery} from '../apis'
+import {UserDetailModal} from './UserDetailModal'
+import {useAppDispatch} from '@/hooks'
+import {setUserAccountAction} from '../userAccountAction'
 
 declare module '@tanstack/react-table' {
   //add fuzzy filter to the filterFns
@@ -45,6 +48,16 @@ const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
 }
 
 export const UsersTable = () => {
+  const [isUserDetailModalOpen, setIsUserDetailModalOpen] = useState(false)
+  const toggleUserDetailModal = () => {
+    setIsUserDetailModalOpen(!isUserDetailModalOpen)
+  }
+
+  const dispatch = useAppDispatch()
+  const setUserAccount = (userAccount: UserAccountModel) => {
+    dispatch(setUserAccountAction(userAccount))
+  }
+
   const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 10,
@@ -53,8 +66,20 @@ export const UsersTable = () => {
   const [globalFilter, setGlobalFilter] = useState('')
 
   const {isSuccess, data, isLoading, refetch} = useGetAllUsersQuery({})
+  const [deleteUser, {isError: isDeleteError, isSuccess: isDeleteSuccess}] =
+    useDeleteUserMutation()
 
-  const columnHelper = createColumnHelper<UserModel>()
+    useEffect(() => {
+      if (isDeleteSuccess) {
+        Swal.fire('Deleted!', 'User has been deleted.', 'success')
+      } else if (isDeleteError) {
+        Swal.fire('Error!', 'User could not be deleted.', 'error')
+      }
+    }
+    , [isDeleteSuccess, isDeleteError])
+
+
+  const columnHelper = createColumnHelper<UserAccountModel>()
   const columns = [
     columnHelper.accessor('firstName', {
       header: 'First Name',
@@ -72,11 +97,33 @@ export const UsersTable = () => {
       header: 'Email',
       cell: (user) => user.getValue(),
     }),
+    columnHelper.accessor('phone', {
+      header: 'Phone',
+      cell: (user) => user.getValue(),
+    }),
+    columnHelper.accessor('role', {
+      header: 'Role',
+      cell: (user) => user.getValue(),
+    }),
+    columnHelper.accessor('isDeleted', {
+      header: 'Deleted',
+      cell: (user) => user.getValue(),
+    }),
 
     columnHelper.accessor('actions', {
       header: 'Actions',
-      cell: (question) => (
-        <div className='flex justify-between mx-2'>
+      cell: (user) => (
+        <div className='flex justify-between px-2 w-full'>
+          <button
+            name='viewUserDetail'
+            type='button'
+            className='text-black'
+            onClick={() => {
+              setUserAccount(data?.users[user.cell.row.index])
+              toggleUserDetailModal()
+            }}>
+            <FontAwesomeIcon icon={faEye} />
+          </button>
           <button className=' text-black ' onClick={() => console.log('Edit')}>
             <FontAwesomeIcon icon={faPenToSquare} />
           </button>
@@ -93,16 +140,19 @@ export const UsersTable = () => {
                 confirmButtonText: 'Yes, delete it!',
               }).then((result) => {
                 if (result.isConfirmed) {
-                  console.info(`question`, question)
-                  deleteQuestion({id: question.cell.row.original.id})
+                  deleteUser({id: data?.users[user.cell.row.index].id})
                 }
               })
             }>
             <FontAwesomeIcon icon={faTrash} />
+
           </button>
-          <button className='text-black' onClick={}>
-            <FontAwesomeIcon icon={faEye} />
-          </button>
+
+          <UserDetailModal
+            isOpen={isUserDetailModalOpen}
+            toggleModal={toggleUserDetailModal}
+            refetch={refetch}
+          />
         </div>
       ),
     }),
@@ -135,7 +185,7 @@ export const UsersTable = () => {
         placeholder='Search...'
         className='border p-1 rounded'
       />
-      <table className='my-4 text-black'>
+      <table className='my-4 text-black w-full'>
         <thead className='border-2 border-blue-500 border-lg'>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id} className='border-2 border-blue-500'>

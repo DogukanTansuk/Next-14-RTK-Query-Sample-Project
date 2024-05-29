@@ -1,6 +1,7 @@
 // Feature Imports
 import authSlice from '@/features/auth/authSlice'
 import appSlice from '@/features/app/appSlice'
+import userAccountSlice from '@/features/userAccount/userAccountSlice'
 
 // Util and Lib Imports
 import {rtkQueryApi} from './rtkQueryApi'

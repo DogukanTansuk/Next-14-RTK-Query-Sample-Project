@@ -1,6 +1,6 @@
-import {number} from 'yup'
 
-export interface UserModel {
+
+export interface UserAccountModel {
   id: number
   firstName: string
   lastName: string
@@ -69,5 +69,6 @@ export interface UserModel {
     network: string
   }
   role: 'admin' | 'user' | 'moderator'
+  isDeleted ?: boolean
  
 }
