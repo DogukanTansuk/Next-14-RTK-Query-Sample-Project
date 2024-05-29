@@ -1,3 +1,3 @@
 export * from './app'
-export * from './users'
+export * from './userAccount'
 export * from './products'
