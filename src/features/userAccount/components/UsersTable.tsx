@@ -21,8 +21,8 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faPenToSquare, faTrash} from '@fortawesome/free-solid-svg-icons'
 import Swal from 'sweetalert2'
 import SearchInput from './SearchInput'
-import { UserModel } from '../models'
-import { useGetAllUsersQuery } from '../apis'
+import {UserModel} from '../models'
+import {useGetAllUsersQuery} from '../apis'
 
 declare module '@tanstack/react-table' {
   //add fuzzy filter to the filterFns
@@ -72,7 +72,7 @@ export const UsersTable = () => {
       header: 'Email',
       cell: (user) => user.getValue(),
     }),
-  
+
     columnHelper.accessor('actions', {
       header: 'Actions',
       cell: (question) => (
@@ -100,6 +100,9 @@ export const UsersTable = () => {
             }>
             <FontAwesomeIcon icon={faTrash} />
           </button>
+          <button className='text-black' onClick={}>
+            <FontAwesomeIcon icon={faEye} />
+          </button>
         </div>
       ),
     }),
@@ -124,7 +127,6 @@ export const UsersTable = () => {
     globalFilterFn: 'fuzzy',
   })
 
-
   return (
     <div className='mt-6'>
       <SearchInput
@@ -138,7 +140,7 @@ export const UsersTable = () => {
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id} className='border-2 border-blue-500'>
               {headerGroup.headers.map((header) => (
-                <th key={header.id} className='border-2 border-blue-500 px-2 text-base '>
+                <th key={header.id} className='border-2 border-blue-500 px-2  '>
                   {header.isPlaceholder
                     ? null
                     : flexRender(header.column.columnDef.header, header.getContext())}

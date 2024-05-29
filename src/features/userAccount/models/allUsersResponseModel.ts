@@ -1,4 +1,4 @@
-import { UserModel } from "./userModel"
+import { UserModel } from "./userAccountModel"
 
 export interface AllUsersResponseModel {
   users: UserModel[]
