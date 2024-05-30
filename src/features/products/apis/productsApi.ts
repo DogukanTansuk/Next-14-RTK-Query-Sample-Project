@@ -1,5 +1,9 @@
 import {rtkQueryApi} from '@/libs/reduxToolkit'
-import {CategoriesResponseModel, ProductsResponseModel} from '../models'
+import {
+  AllProductsCategoriesResponseModel,
+  CategoriesResponseModel,
+  ProductsResponseModel,
+} from '../models'
 import {ProductResponseModel} from '../models/productResponseModel'
 
 export const productsApi = rtkQueryApi.injectEndpoints({
@@ -16,9 +20,21 @@ export const productsApi = rtkQueryApi.injectEndpoints({
         method: 'GET',
       }),
     }),
-    getCategories: builder.query<string[], any>({
+    getAllProductCategories: builder.query<AllProductsCategoriesResponseModel, any>({
       query: () => ({
         url: '/products/categories',
+        method: 'GET',
+      }),
+    }),
+    getProductsCategoryList: builder.query<CategoriesResponseModel, any>({
+      query: (category) => ({
+        url: '/products/category-list',
+        method: 'GET',
+      }),
+    }),
+    getProductsByACategory: builder.query<ProductsResponseModel, any>({
+      query: (category) => ({
+        url: `/products/category/${category}`,
         method: 'GET',
       }),
     }),
@@ -39,5 +55,13 @@ export const productsApi = rtkQueryApi.injectEndpoints({
   }),
 })
 
-export const {useGetProductsQuery, useGetProductQuery, useGetCategoriesQuery, useCreateProductMutation, useUpdateProductMutation} = productsApi
+export const {
+  useGetProductsQuery,
+  useGetProductQuery,
+  useGetAllProductCategoriesQuery,
+  useGetProductsByACategoryQuery,
+  useGetProductsCategoryListQuery,
+  useCreateProductMutation,
+  useUpdateProductMutation,
+} = productsApi
 export default productsApi
