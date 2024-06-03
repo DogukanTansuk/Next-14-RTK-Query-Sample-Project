@@ -1,12 +1,29 @@
 'use client'
 
-import React from 'react'
+import React, {FC} from 'react'
 import {ProductCard} from './ProductCard'
-import {useGetProductsQuery} from '../apis'
+import {useGetProductsByACategoryQuery, useGetProductsQuery} from '../apis'
 import Link from 'next/link'
 
-export const Products = () => {
-  const {isSuccess, data, isLoading} = useGetProductsQuery({})
+interface ProductsProps {
+  query?: string
+}
+
+export const Products: FC<ProductsProps> = ({query}) => {
+  const {isSuccess, data, isLoading} = useGetProductsQuery(
+    {},
+    {
+      skip: !!query,
+    }
+  )
+  
+  const {
+    isSuccess: categoryIsSuccess,
+    data: categoryData,
+    isLoading: categoryIsLoading,
+  } = useGetProductsByACategoryQuery(query, {
+    skip: !query,
+  })
 
   return (
     <div className='w-full'>
@@ -17,9 +34,14 @@ export const Products = () => {
         </span>
       </Link>
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4'>
-        {isLoading && <p>Loading...</p>}
+        {(isLoading || categoryIsLoading) && <p>Loading...</p>}
         {isSuccess &&
           data?.products.map((product: any) => <ProductCard key={product.id} {...product} />)}
+
+        {categoryIsSuccess &&
+          categoryData?.products.map((product: any) => (
+            <ProductCard key={product.id} {...product} />
+          ))}
       </div>
     </div>
   )

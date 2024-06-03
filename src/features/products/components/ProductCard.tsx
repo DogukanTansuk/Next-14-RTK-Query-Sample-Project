@@ -57,9 +57,6 @@ export const ProductCard: FC<ProductCardProps> = ({
         <Typography variant='body2' color='text.secondary'>
           {category}
         </Typography>
-        <Typography variant='body2' color='text.secondary'>
-          {thumbnail}
-        </Typography>
       </CardContent>
       <CardActions>
         <Button size='small'>Share</Button>

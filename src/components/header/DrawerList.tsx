@@ -1,5 +1,6 @@
 'use client'
 
+import {useGetAllProductCategoriesQuery} from '@/features'
 //Package Imports
 import {Box, List, ListItem, ListItemText, Divider, Collapse} from '@mui/material'
 import Link from 'next/link'
@@ -8,7 +9,6 @@ import Link from 'next/link'
 import React, {useState} from 'react'
 
 // Feature Imports
-import {useGetCategoriesQuery} from '@/features'
 
 export const DrawerList = () => {
   const [open, setOpen] = React.useState(false)
@@ -22,7 +22,7 @@ export const DrawerList = () => {
     setOpenCategories(!openCategories)
   }
 
-  const {isSuccess, data, isLoading} = useGetCategoriesQuery({})
+  const {isSuccess, data, isLoading} = useGetAllProductCategoriesQuery({})
 
   return (
     <Box sx={{width: 250}} role='presentation' onClick={toggleDrawer(false)}>
@@ -40,13 +40,13 @@ export const DrawerList = () => {
           {openCategories ? <span>-</span> : <span>+</span>}
         </ListItem>
         <Collapse in={openCategories} timeout='auto' unmountOnExit>
-          <List component='div' disablePadding >
+          <List component='div' disablePadding>
             {isLoading && <p>Loading...</p>}
             {isSuccess &&
-              data?.map((category: any) => (
-                <Link href={`/products/categories/${category.slug}`} key={category.id}>
+              data?.map((category) => (
+                <Link href={`/products/category/${category.slug}`} key={category.id}>
                   <ListItem button sx={{pl: 4}}>
-                    <ListItemText primary={category} />
+                    <ListItemText primary={category.name} />
                   </ListItem>
                 </Link>
               ))}

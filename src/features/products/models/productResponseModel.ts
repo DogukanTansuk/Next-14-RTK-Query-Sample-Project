@@ -1,3 +1,4 @@
 import { ProductModel } from "./productModel";
 
-export interface ProductResponseModel extends ProductModel {}
+export interface ProductResponseModel extends ProductModel {
+}

@@ -8,10 +8,12 @@ import {rtkQueryApi} from './rtkQueryApi'
 
 // Package Imports
 import {combineReducers} from '@reduxjs/toolkit'
+import cartSlice from '@/features/cart/cartSlice'
 
 export const reducers = combineReducers({
   [rtkQueryApi.reducerPath]: rtkQueryApi.reducer, // reducerPath rtkQueryApi içinde tanımlanan ve belirleyici ad olarak kullanılan değişkendir. "splitApi" olarak tanımlanmıştır.
   auth: authSlice,
   app: appSlice,
   userAccount: userAccountSlice,
+  cart: cartSlice,
 })

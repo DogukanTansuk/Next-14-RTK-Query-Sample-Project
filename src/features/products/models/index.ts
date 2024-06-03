@@ -1,3 +1,5 @@
 export * from './productModel'
 export * from './productsResponseModel'
 export * from './categoriesResponseModel'
+export * from './allProductsCategoriesResponseModel'
+export * from './productResponseModel'
