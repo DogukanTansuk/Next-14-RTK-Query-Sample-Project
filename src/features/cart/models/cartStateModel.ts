@@ -2,6 +2,6 @@ import { CartsModel } from "./cartsModel";
 
 
 export interface CartStateModel {
-    carts: CartsModel[],
-    cart: CartsModel,
+    carts: Nullable<CartsModel[]>;
+    cart: Nullable<CartsModel>;
 }

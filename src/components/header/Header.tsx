@@ -14,6 +14,8 @@ import {withAuth} from '@/hocs'
 import {AccountCircle} from '@mui/icons-material'
 import {DrawerList} from './DrawerList'
 import Link from 'next/link'
+import { useAppDispatch } from '@/hooks'
+import { logoutAction } from '@/features/auth'
 
 const Header = withAuth(() => {
   const [auth, setAuth] = React.useState(true)
@@ -36,6 +38,9 @@ const Header = withAuth(() => {
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen)
   }
+
+  const dispatch = useAppDispatch()
+  const logout = () => dispatch(logoutAction())
 
   return (
     <Box sx={{flexGrow: 1}}>
@@ -91,7 +96,7 @@ const Header = withAuth(() => {
                   </Link>
                 </MenuItem>
                 <MenuItem onClick={handleClose}>
-                  <FontAwesomeIcon icon={faRightFromBracket} />
+                  <FontAwesomeIcon icon={faRightFromBracket} onClick={() => logout()} />
                 </MenuItem>
               </div>
             </>

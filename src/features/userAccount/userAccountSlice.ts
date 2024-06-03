@@ -1,5 +1,5 @@
 // Feature Imports
-import {UserModel, UserAccountStateModel} from './models'
+import { UserAccountStateModel, UserAccountModel} from './models'
 
 // Package Imports
 import {PayloadAction, createSlice} from '@reduxjs/toolkit'

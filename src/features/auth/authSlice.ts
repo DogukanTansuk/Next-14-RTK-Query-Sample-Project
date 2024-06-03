@@ -17,8 +17,10 @@ export const {reducer, actions} = createSlice({
     setUser: (state: AuthStateModel, {payload}: PayloadAction<Nullable<UserModel>>) => {
       state.user = payload
     },
+
+    setLogout: (state: AuthStateModel) => initialState,
   },
 })
 
-export const {setUser} = actions
+export const {setUser, setLogout} = actions
 export default reducer

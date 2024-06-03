@@ -1,9 +1,10 @@
 // Feature Imports
 import {UserModel} from './models'
-import {setUser} from './authSlice'
+import {setLogout, setUser} from './authSlice'
 
 // Package Imports
 import {createAsyncThunk} from '@reduxjs/toolkit'
+import Cookies from 'js-cookie'
 
 export const setUserAction = createAsyncThunk(
   'auth/setUserAction',
@@ -11,3 +12,9 @@ export const setUserAction = createAsyncThunk(
     dispatch(setUser(user))
   }
 )
+
+export const logoutAction = createAsyncThunk('auth/logoutAction', async (_, {dispatch}) => {
+  dispatch(setLogout())
+  Cookies.remove('token')
+  window.location.pathname = '/auth/login'
+})
