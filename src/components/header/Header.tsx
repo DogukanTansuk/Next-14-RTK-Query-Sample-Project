@@ -14,8 +14,8 @@ import {withAuth} from '@/hocs'
 import {AccountCircle} from '@mui/icons-material'
 import {DrawerList} from './DrawerList'
 import Link from 'next/link'
-import { useAppDispatch } from '@/hooks'
-import { logoutAction } from '@/features/auth'
+import {useAppDispatch} from '@/hooks'
+import {logoutAction} from '@/features/auth'
 
 const Header = withAuth(() => {
   const [auth, setAuth] = React.useState(true)
@@ -92,6 +92,9 @@ const Header = withAuth(() => {
                 </Menu>
                 <MenuItem>
                   <Link href='/cart'>
+                    <div className='border-red-500 border-2 rounded-full relative w-4 h-4 items-center bg-red-500 -mb-2 ms-4'>
+                      <span className='text-white absolute text-center text-xs px-[1px] '>1</span>
+                    </div>
                     <FontAwesomeIcon icon={faCartShopping} />
                   </Link>
                 </MenuItem>
