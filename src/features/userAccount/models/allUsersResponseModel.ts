@@ -1,7 +1,8 @@
-import { UserModel } from "./userAccountModel"
+import { UserAccountModel } from "./userAccountModel"
+
 
 export interface AllUsersResponseModel {
-  users: UserModel[]
+  users: UserAccountModel[]
   "total": 208,
   "skip": 0,
   "limit": 30

@@ -1,21 +1,21 @@
 import {rtkQueryApi} from '@/libs/reduxToolkit'
-import {get} from 'http'
+import { CartResponseModel, CartsResponseModel } from '../models'
 
 export const cartApi = rtkQueryApi.injectEndpoints({
   endpoints: (builder) => ({
-    getCarts: builder.query<any, any>({
+    getCarts: builder.query<CartsResponseModel, any>({
       query: () => ({
         url: '/carts',
         method: 'GET',
       }),
     }),
-    getCart: builder.query<any, any>({
+    getCart: builder.query<CartResponseModel, any>({
       query: (id) => ({
         url: `/carts/${id}`,
         method: 'GET',
       }),
     }),
-    getCartsByUser: builder.query<any, any>({
+    getCartsByUser: builder.query<CartsResponseModel, any>({
       query: (id) => ({
         url: `/carts/user/${id}`,
         method: 'GET',

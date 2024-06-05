@@ -3,7 +3,6 @@
 // Feature Imports
 import { CartModel, CartStateModel, CartsModel } from './models'
 
-
 // Package Imports
 import {PayloadAction, createSlice} from '@reduxjs/toolkit'
 
@@ -16,7 +15,7 @@ export const {reducer, actions} = createSlice({
     name: 'cart',
     initialState,
     reducers: {
-        setCart: (state: CartStateModel, {payload}: PayloadAction<Nullable<CartsModel>>) => {
+        setCart: (state: CartStateModel, {payload}: PayloadAction<Nullable<CartModel>>) => {
             state.cart = payload
         },
         setCarts: (state: CartStateModel, {payload}: PayloadAction<Nullable<CartsModel[]>>) => {

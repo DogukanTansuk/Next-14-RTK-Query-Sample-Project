@@ -1,6 +1,7 @@
-import { ProductModel } from '@/features/products';
+import { CartProductsModel } from "./cartProductsModel"
 
-export interface CartModel extends ProductModel {
+export interface CartModel {
+  products: CartProductsModel[]
   id: string
   total: number
   discountedTotal: number

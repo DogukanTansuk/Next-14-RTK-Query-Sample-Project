@@ -16,6 +16,7 @@ import {DrawerList} from './DrawerList'
 import Link from 'next/link'
 import {useAppDispatch} from '@/hooks'
 import {logoutAction} from '@/features/auth'
+import { useGetCartsQuery } from '@/features/cart'
 
 const Header = withAuth(() => {
   const [auth, setAuth] = React.useState(true)
@@ -41,6 +42,8 @@ const Header = withAuth(() => {
 
   const dispatch = useAppDispatch()
   const logout = () => dispatch(logoutAction())
+
+  const {data, isSuccess} = useGetCartsQuery([])
 
   return (
     <Box sx={{flexGrow: 1}}>
@@ -92,8 +95,8 @@ const Header = withAuth(() => {
                 </Menu>
                 <MenuItem>
                   <Link href='/cart'>
-                    <div className='border-red-500 border-2 rounded-full relative w-4 h-4 items-center bg-red-500 -mb-2 ms-4'>
-                      <span className='text-white absolute text-center text-xs px-[1px] '>1</span>
+                    <div className='border-red-500 border-2 rounded-full relative w-5 h-5 items-center bg-red-500 -mb-2 ms-4'>
+                      <span className='text-white absolute text-center text-xs px-[1px] font-semibold '>{data?.total}</span>
                     </div>
                     <FontAwesomeIcon icon={faCartShopping} />
                   </Link>

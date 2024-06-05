@@ -1,6 +1,6 @@
 import {CartModel} from './cartModel'
 
-export interface CartsModel extends CartModel {
+export interface CartsModel {
   carts: CartModel[]
   total: number
   skip: number
