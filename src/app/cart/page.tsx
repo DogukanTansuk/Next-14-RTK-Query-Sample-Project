@@ -1,6 +1,7 @@
 
-import { Products } from "@/features";
+
+import { Cart } from "@/features/cart";
 
 export default function CartPage() {
-  return <Products />;
+  return <Cart />;
 }
