@@ -27,7 +27,7 @@ export const DrawerList = () => {
   return (
     <Box sx={{width: 250}} role='presentation' onClick={toggleDrawer(false)}>
       <List>
-        {['Users', 'Products'].map((text, index) => (
+        {['Users', 'Products', 'Recipes'].map((text, index) => (
           <Link href={`/${text.toLowerCase()}`} key={text}>
             <ListItem button>
               <ListItemText primary={text} />
@@ -52,6 +52,7 @@ export const DrawerList = () => {
               ))}
           </List>
         </Collapse>
+
       </List>
       <Divider />
     </Box>
