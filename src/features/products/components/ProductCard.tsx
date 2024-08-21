@@ -63,6 +63,10 @@ export const ProductCard: FC<ProductCardProps> = ({
         <Link href='/products/[slug]' as={`/products/${id}`}>
           <Button size='small'>Learn More</Button>
         </Link>
+        <Link href='/products/[slug]' as={`/products/${id}`}>
+          <Button size='small'>... Yorum</Button>
+        </Link>
+        
       </CardActions>
     </Card>
   )
