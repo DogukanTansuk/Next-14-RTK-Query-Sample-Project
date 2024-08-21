@@ -26,11 +26,11 @@ export const DrawerList:FC<DrawerListProps> = ({onClose}) => {
   const {isSuccess, data, isLoading} = useGetAllProductCategoriesQuery({})
 
   return (
-    <Box sx={{width: 250}} role='presentation' onClick={onClose}>
+    <Box sx={{width: 250}} role='presentation' >
       <List>
         {['Users', 'Products', 'Recipes'].map((text, index) => (
           <Link href={`/${text.toLowerCase()}`} key={text} >
-            <ListItem button>
+            <ListItem button onClick={onClose}>
               <ListItemText primary={text} />
             </ListItem>
           </Link>
@@ -53,7 +53,6 @@ export const DrawerList:FC<DrawerListProps> = ({onClose}) => {
               ))}
           </List>
         </Collapse>
-
       </List>
       <Divider />
     </Box>
