@@ -9,8 +9,8 @@ import {ProductResponseModel} from '../models/productResponseModel'
 export const productsApi = rtkQueryApi.injectEndpoints({
   endpoints: (builder) => ({
     getProducts: builder.query<ProductsResponseModel, any>({
-      query: () => ({
-        url: '/products',
+      query: (query) => ({
+        url: `/products${query ? `/search?q=${query}` : ''}`,
         method: 'GET',
       }),
     }),
@@ -52,6 +52,7 @@ export const productsApi = rtkQueryApi.injectEndpoints({
         body: data,
       }),
     }),
+
   }),
 })
 

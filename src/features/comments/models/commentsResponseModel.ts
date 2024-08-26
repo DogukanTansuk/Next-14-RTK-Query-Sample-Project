@@ -1,4 +1,5 @@
 export interface CommentsResponseModel {
+  comments: any
   id: number
   body: string
   postId: number
