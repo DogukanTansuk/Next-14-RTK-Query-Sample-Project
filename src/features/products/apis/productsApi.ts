@@ -53,6 +53,12 @@ export const productsApi = rtkQueryApi.injectEndpoints({
       }),
     }),
 
+    deleteProduct: builder.mutation<any, any>({
+      query: (id) => ({
+        url: `/products/${id}`,
+        method: 'DELETE',
+      }),
+    }),
   }),
 })
 
@@ -64,5 +70,6 @@ export const {
   useGetProductsCategoryListQuery,
   useCreateProductMutation,
   useUpdateProductMutation,
+  useDeleteProductMutation,
 } = productsApi
 export default productsApi

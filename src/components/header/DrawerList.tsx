@@ -28,7 +28,7 @@ export const DrawerList:FC<DrawerListProps> = ({onClose}) => {
   return (
     <Box sx={{width: 250}} role='presentation' >
       <List>
-        {['Users', 'Products', 'Recipes'].map((text, index) => (
+        {['Users', 'Products', 'Recipes', 'Posts'].map((text, index) => (
           <Link href={`/${text.toLowerCase()}`} key={text} >
             <ListItem button onClick={onClose}>
               <ListItemText primary={text} />
