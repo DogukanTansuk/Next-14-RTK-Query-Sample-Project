@@ -41,7 +41,7 @@ export const PostCard: React.FC<PostCardProps> = ({title, body, tags, reactions,
               {reactions.likes}
             </Typography>
             <Typography variant='body2' color='text.secondary'>
-              <FontAwesomeIcon icon={faEye} className=' me-4' /> {views}
+              <FontAwesomeIcon icon={faEye} className=' me-2' /> {views}
             </Typography>
           </div>
         </CardContent>
