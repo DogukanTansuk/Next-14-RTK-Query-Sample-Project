@@ -6,16 +6,17 @@ import {Box, List, ListItem, ListItemText, Divider, Collapse} from '@mui/materia
 import Link from 'next/link'
 
 // React Imports
-import React, {useState} from 'react'
+import React, {FC, useState} from 'react'
 
 // Feature Imports
 
-export const DrawerList = () => {
+ interface DrawerListProps {
+  onClose: () => void
+}
+
+export const DrawerList:FC<DrawerListProps> = ({onClose}) => {
   const [open, setOpen] = React.useState(false)
 
-  const toggleDrawer = (newOpen: boolean) => () => {
-    setOpen(newOpen)
-  }
   const [openCategories, setOpenCategories] = useState(false)
 
   const handleCategoriesClick = () => {
@@ -25,11 +26,11 @@ export const DrawerList = () => {
   const {isSuccess, data, isLoading} = useGetAllProductCategoriesQuery({})
 
   return (
-    <Box sx={{width: 250}} role='presentation' onClick={toggleDrawer(false)}>
+    <Box sx={{width: 250}} role='presentation' >
       <List>
-        {['Users', 'Products'].map((text, index) => (
-          <Link href={`/${text.toLowerCase()}`} key={text}>
-            <ListItem button>
+        {['Users', 'Products', 'Recipes', 'Posts'].map((text, index) => (
+          <Link href={`/${text.toLowerCase()}`} key={text} >
+            <ListItem button onClick={onClose}>
               <ListItemText primary={text} />
             </ListItem>
           </Link>
@@ -44,8 +45,8 @@ export const DrawerList = () => {
             {isLoading && <p>Loading...</p>}
             {isSuccess &&
               data?.map((category) => (
-                <Link href={`/products/category/${category.slug}`} key={category.id}>
-                  <ListItem button sx={{pl: 4}}>
+                <Link href={`/products/category/${category.slug}`} key={category.id} onClick={onClose}>
+                  <ListItem button sx={{pl: 4}} >
                     <ListItemText primary={category.name} />
                   </ListItem>
                 </Link>

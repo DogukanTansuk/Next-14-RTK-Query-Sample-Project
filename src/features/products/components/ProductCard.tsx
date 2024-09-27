@@ -29,7 +29,6 @@ export const ProductCard: FC<ProductCardProps> = ({
   price,
   brand,
   category,
-  thumbnail,
   images,
   id,
 }) => {

@@ -9,8 +9,7 @@ import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
-import Link from 'next/link'
-import {useParams} from 'next/navigation'
+import {Comments, useGetCommentsQuery} from '@/features/comments'
 
 interface ProductDetailProps {
   title: string
@@ -37,16 +36,20 @@ export const ProductDetail: FC<ProductDetailProps> = ({
   thumbnail,
   images,
 }) => {
-
+  const {isSuccess, data, isError} = useGetCommentsQuery([])
   return (
     <Card sx={{maxWidth: 800}}>
       {images && images.length > 0 ? (
         <CardMedia component='img' height='140' image={images[0]} alt={title} />
       ) : null}
       <CardContent>
-        <Typography gutterBottom variant='h5' component='div'>
+        <Typography gutterBottom variant='h5' component='div' className='flex items-center'>
           {title}
+          <CardActions className='w-1/2 justify-end'>
+            <Button size='small'>Share</Button>
+          </CardActions>
         </Typography>
+
         <Typography variant='body2' color='text.secondary'>
           {description}
         </Typography>
@@ -71,10 +74,16 @@ export const ProductDetail: FC<ProductDetailProps> = ({
         <Typography variant='body2' color='text.secondary'>
           {thumbnail}
         </Typography>
+        {isSuccess &&
+          data?.comments.map((comment: any) => (
+            <Comments
+              key={comment.id}
+              body={comment.body}
+              user={comment.user}
+              likes={comment.likes}
+            />
+          ))}
       </CardContent>
-      <CardActions>
-        <Button size='small'>Share</Button>
-      </CardActions>
     </Card>
   )
 }

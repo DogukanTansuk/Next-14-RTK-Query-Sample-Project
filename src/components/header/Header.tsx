@@ -60,7 +60,7 @@ const Header = withAuth(() => {
               <MenuIcon />
             </IconButton>
             <Drawer anchor='left' open={open} onClose={toggleDrawer(false)}>
-              <DrawerList />
+              <DrawerList onClose={toggleDrawer(false)} />
             </Drawer>
           </div>
 

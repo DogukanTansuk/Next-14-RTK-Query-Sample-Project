@@ -105,8 +105,8 @@ export const UsersTable = () => {
       header: 'Role',
       cell: (user) => user.getValue(),
     }),
-    columnHelper.accessor('isDeleted', {
-      header: 'Deleted',
+    columnHelper.accessor('eyeColor', {
+      header: 'Eye Color',
       cell: (user) => user.getValue(),
     }),
 
