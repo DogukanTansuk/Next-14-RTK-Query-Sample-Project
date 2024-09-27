@@ -1,8 +1,8 @@
-import {PostsModel} from './postsModel'
+import {PostModel} from './postModel'
 
-export interface PostsResponseModel extends PostsModel {
+export interface PostsResponseModel extends PostModel {
   map(arg0: (post: PostsResponseModel) => import("react").JSX.Element): import("react").ReactNode
-  posts: PostsModel[]
+  posts: PostModel[]
   total: number
   skip: number
   limit: number
