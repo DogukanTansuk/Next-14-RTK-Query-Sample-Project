@@ -7,8 +7,12 @@ import CardActionArea from '@mui/material/CardActionArea'
 import {useGetPostsQuery} from '../apis'
 import {faEye, faHeart, faTag} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import CardActions from '@mui/material/CardActions'
+import Link from 'next/link'
+import { Button } from '@mui/material'
 
 interface PostCardProps {
+  id: number
   title: string
   body: string
   tags: string[]
@@ -19,8 +23,10 @@ interface PostCardProps {
   views: number
 }
 
-export const PostCard: React.FC<PostCardProps> = ({title, body, tags, reactions, views}) => {
+export const PostCard: React.FC<PostCardProps> = ({id, title, body, tags, reactions, views}) => {
   const {data, isSuccess} = useGetPostsQuery([])
+
+  const truncatedBody = body.length > 100 ? body.substring(0, 100) + '...' : body
   return (
     <Card sx={{maxWidth: 345}}>
       <CardActionArea>
@@ -29,7 +35,7 @@ export const PostCard: React.FC<PostCardProps> = ({title, body, tags, reactions,
             {title}
           </Typography>
           <Typography variant='body2' color='text.secondary'>
-            {body}
+            {truncatedBody}
           </Typography>
           <div className='mt-4'>
             <Typography variant='body2' color='text.secondary'>
@@ -45,6 +51,12 @@ export const PostCard: React.FC<PostCardProps> = ({title, body, tags, reactions,
             </Typography>
           </div>
         </CardContent>
+        <CardActions>
+          <Button size='small'>Share</Button>
+          <Link href='/posts/[slug]' as={`/posts/${id}`}>
+            <Button size='small'>Learn More</Button>
+          </Link>
+        </CardActions>
       </CardActionArea>
     </Card>
   )
