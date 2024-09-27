@@ -20,8 +20,8 @@ export const postsApi = rtkQueryApi.injectEndpoints({
     }),
 
     getPostComments: builder.query<PostCommentsResponseModel, string[]>({
-      query: (slug) => ({
-        url: `/posts/${slug}/comments`,
+      query: () => ({
+        url: `/posts/1/comments`,
         method: 'GET',
       }),
     }),
